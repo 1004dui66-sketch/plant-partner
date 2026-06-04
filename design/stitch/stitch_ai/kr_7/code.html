@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Plant Buddy - Settings</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600&amp;family=Playfair+Display:wght@600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "secondary-fixed": "#c3ecd7",
+                    "inverse-surface": "#2d3133",
+                    "on-secondary-fixed-variant": "#294e3f",
+                    "surface-dim": "#d8dadc",
+                    "on-surface": "#191c1e",
+                    "secondary-fixed-dim": "#a8cfbc",
+                    "on-background": "#191c1e",
+                    "inverse-primary": "#95d3ba",
+                    "primary-fixed-dim": "#95d3ba",
+                    "background": "#f7f9fb",
+                    "surface-variant": "#e0e3e5",
+                    "on-surface-variant": "#404944",
+                    "on-primary-fixed": "#002117",
+                    "surface": "#f7f9fb",
+                    "on-error": "#ffffff",
+                    "error": "#ba1a1a",
+                    "surface-bright": "#f7f9fb",
+                    "on-error-container": "#93000a",
+                    "surface-container-highest": "#e0e3e5",
+                    "on-secondary": "#ffffff",
+                    "tertiary": "#242f41",
+                    "on-primary-fixed-variant": "#0b513d",
+                    "surface-container-lowest": "#ffffff",
+                    "on-primary": "#ffffff",
+                    "error-container": "#ffdad6",
+                    "primary-fixed": "#b0f0d6",
+                    "primary-container": "#064e3b",
+                    "surface-container": "#eceef0",
+                    "tertiary-container": "#3a4558",
+                    "on-secondary-fixed": "#002115",
+                    "outline-variant": "#bfc9c3",
+                    "on-tertiary": "#ffffff",
+                    "inverse-on-surface": "#eff1f3",
+                    "surface-container-low": "#f2f4f6",
+                    "outline": "#707974",
+                    "secondary": "#416656",
+                    "primary": "#003527",
+                    "on-tertiary-container": "#a7b2c9",
+                    "on-secondary-container": "#476c5b",
+                    "on-primary-container": "#80bea6",
+                    "tertiary-fixed-dim": "#bcc7de",
+                    "on-tertiary-fixed-variant": "#3c475a",
+                    "on-tertiary-fixed": "#111c2d",
+                    "tertiary-fixed": "#d8e3fb",
+                    "secondary-container": "#c3ecd7",
+                    "surface-container-high": "#e6e8ea",
+                    "surface-tint": "#2b6954"
+            },
+            "borderRadius": {
+                    "DEFAULT": "1rem",
+                    "lg": "2rem",
+                    "xl": "3rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "gutter": "24px",
+                    "unit": "8px",
+                    "stack-sm": "8px",
+                    "stack-md": "24px",
+                    "margin-mobile": "20px",
+                    "container-max": "1280px",
+                    "stack-lg": "48px",
+                    "margin-desktop": "64px"
+            },
+            "fontFamily": {
+                    "body-lg": ["Hanken Grotesk"],
+                    "headline-md": ["Playfair Display"],
+                    "display-lg-mobile": ["Playfair Display"],
+                    "headline-lg": ["Playfair Display"],
+                    "display-lg": ["Playfair Display"],
+                    "body-md": ["Hanken Grotesk"],
+                    "label-md": ["Hanken Grotesk"],
+                    "code-sm": ["Hanken Grotesk"]
+            },
+            "fontSize": {
+                    "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                    "headline-md": ["32px", {"lineHeight": "1.3", "fontWeight": "600"}],
+                    "display-lg-mobile": ["40px", {"lineHeight": "1.2", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                    "headline-lg": ["48px", {"lineHeight": "1.2", "fontWeight": "600"}],
+                    "display-lg": ["64px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                    "label-md": ["14px", {"lineHeight": "1.0", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                    "code-sm": ["13px", {"lineHeight": "1.4", "fontWeight": "500"}]
+            }
+          }
+        }
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+          font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(30px);
+            -webkit-backdrop-filter: blur(30px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        .glass-ambient-shadow {
+            box-shadow: 0 10px 30px rgba(0, 53, 39, 0.05);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head>
+<body class="bg-background text-on-background font-body-md antialiased min-h-screen pb-24 md:pb-0 relative overflow-x-hidden">
+<!-- Top App Bar (Mobile Only as per guidelines for nav shell) -->
+<header class="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-gutter h-16 bg-surface/70 backdrop-blur-xl md:hidden shadow-sm shadow-primary/5">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-primary text-2xl">menu</span>
+<span class="font-headline-md text-headline-md text-primary font-bold">Plant Buddy</span>
+</div>
+<div>
+<img alt="User profile avatar" class="w-8 h-8 rounded-full object-cover border border-white/30" data-alt="A close up portrait of a young woman with a calm expression. Soft natural lighting highlights her features. The background is a soft, blurred green indicating a natural environment. She is wearing light colored clothing. The image has a clean, premium, modern feel." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC32nSkufNUjHnhxMT8cnBu1JrgrozBz2fY5NskEbQaAQksMyCueJg-wwWQcnKAjSe4orPPW_kiLI3050oIdykTI9ttfOR8ENaGakYuDnUWR1YNR99baWd6vWq3C5Bo2iq1Zpium1fMiilFUeOtVGEk6DJ7d09CUvDIRJC6aLpEFZj4ZQSkL0UFp0Ki92jJcyv2WnEXNn3EQvErlSKdClTSXXNIj2hijfYkWTq-xPxdeSLRV3Jrg217Vr8g4Vxof9Zx9tESgU_J0_Va"/>
+</div>
+</header>
+<!-- Side Navigation Drawer (Desktop) -->
+<nav class="hidden md:flex fixed inset-y-0 left-0 z-[60] flex-col py-6 bg-surface h-full w-80 rounded-r-lg shadow-2xl border-r border-white/30">
+<!-- Header Profile -->
+<div class="px-6 mb-8 flex flex-col items-start">
+<img alt="User profile" class="w-16 h-16 rounded-full object-cover mb-4 border-2 border-primary-container/20 shadow-sm shadow-primary/10" data-alt="A close up portrait of a young woman with a calm expression. Soft natural lighting highlights her features. The background is a soft, blurred green indicating a natural environment. She is wearing light colored clothing. The image has a clean, premium, modern feel." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCRVhudXpzpnBJdMoE8Rp9sRYkskHTQdOTa-6_PXHE2ZuCVRqHBWKELJCoZbosjIF9pIgqAL0a4xkSz_hLzfgw2yv4zvgoC10OPi1gTNWFB9HXehGp3uVLAhXVFrPBdIAqAJnKP1ZzbglZ4yTOloRaTzPt656EZ8Tla8QyNTRNFaiE3PAmdTBxR_Z9uHhs4PDk68TcUy-TMsoaz-xW7BDI_-Ws1OLV9xec8DRB4Ro5mtdqn6brj9-ZOwmNW7FxaSh2lzZhD7qt_7c7j"/>
+<h2 class="font-headline-md text-primary text-xl font-semibold">Botanist Explorer</h2>
+<p class="font-label-md text-label-md text-secondary mt-1 bg-secondary-container/50 px-2 py-0.5 rounded-full inline-block">Level 12 Caretaker</p>
+<p class="font-body-md text-on-surface-variant text-sm mt-1">14 Plants Active</p>
+</div>
+<!-- Navigation Links -->
+<div class="flex-1 flex flex-col gap-1 overflow-y-auto">
+<a class="flex items-center gap-3 text-on-surface-variant mx-2 px-4 py-3 hover:bg-surface-container-high rounded-xl transition-colors" href="#">
+<span class="material-symbols-outlined">library_books</span>
+<span class="font-label-md text-label-md">Plant Encyclopedia</span>
+</a>
+<a class="flex items-center gap-3 text-on-surface-variant mx-2 px-4 py-3 hover:bg-surface-container-high rounded-xl transition-colors" href="#">
+<span class="material-symbols-outlined">water_drop</span>
+<span class="font-label-md text-label-md">Watering Reminders</span>
+</a>
+<a class="flex items-center gap-3 text-on-surface-variant mx-2 px-4 py-3 hover:bg-surface-container-high rounded-xl transition-colors" href="#">
+<span class="material-symbols-outlined">psychology</span>
+<span class="font-label-md text-label-md">AI Expert Chat</span>
+</a>
+<a class="flex items-center gap-3 text-on-surface-variant mx-2 px-4 py-3 hover:bg-surface-container-high rounded-xl transition-colors" href="#">
+<span class="material-symbols-outlined">workspace_premium</span>
+<span class="font-label-md text-label-md">Premium Support</span>
+</a>
+</div>
+<!-- Main Nav Desktop Bottom Links -->
+<div class="mt-auto flex flex-col gap-1 border-t border-surface-variant pt-4">
+<a class="flex items-center gap-3 text-on-surface-variant mx-2 px-4 py-3 hover:bg-surface-container-high rounded-xl transition-colors" href="#">
+<span class="material-symbols-outlined">home</span>
+<span class="font-label-md text-label-md">Home</span>
+</a>
+<a class="flex items-center gap-3 text-on-surface-variant mx-2 px-4 py-3 hover:bg-surface-container-high rounded-xl transition-colors" href="#">
+<span class="material-symbols-outlined">potted_plant</span>
+<span class="font-label-md text-label-md">Collection</span>
+</a>
+<a class="flex items-center gap-3 bg-secondary-container text-on-secondary-container rounded-xl mx-2 px-4 py-3 transition-all" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">settings</span>
+<span class="font-label-md text-label-md">Settings</span>
+</a>
+</div>
+</nav>
+<!-- Main Content Canvas -->
+<main class="md:ml-80 pt-24 md:pt-16 px-gutter md:px-margin-desktop max-w-container-max mx-auto relative z-10">
+<!-- Header -->
+<div class="mb-stack-lg flex flex-col md:flex-row md:items-end justify-between gap-6">
+<div>
+<h1 class="font-headline-lg text-headline-lg md:font-display-lg md:text-display-lg text-primary tracking-tight">설정</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant mt-2 max-w-2xl">프로필, 환경 설정 및 AI 설정을 관리하여 나만의 플랜트 버디를 만드세요.</p>
+</div>
+</div>
+<!-- Bento Grid Layout for Settings -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-6 mb-stack-lg">
+<!-- Profile Summary Card -->
+<div class="md:col-span-12 lg:col-span-4 glass-panel glass-ambient-shadow rounded-xl p-8 flex flex-col items-center text-center relative overflow-hidden">
+<!-- Decorative background elements -->
+<div class="absolute -top-10 -right-10 w-32 h-32 bg-primary-fixed blur-[40px] opacity-40 rounded-full"></div>
+<div class="absolute -bottom-10 -left-10 w-32 h-32 bg-secondary-fixed blur-[40px] opacity-40 rounded-full"></div>
+<div class="relative z-10">
+<div class="relative inline-block mb-4">
+<img alt="Botanist Explorer Profile Picture" class="w-24 h-24 rounded-full object-cover border-4 border-surface shadow-md" data-alt="A close up portrait of a young woman with a calm expression. Soft natural lighting highlights her features. The background is a soft, blurred green indicating a natural environment. She is wearing light colored clothing. The image has a clean, premium, modern feel." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBPRigXgR8aes-DY0dxVQNR70orTT2E0wAmkp97jLpUwiH_hBND2rzF4dSElQIRZ1EgN5hELPppz-p8DCKQE44-sg19UOSdMbuntBQf7V-6LokzdgMP-986r8TcStAqTGwhM8-gsEbpASTMdh8KSkHqbfKicRJ21QJUHttm7RPf2qVhAhPF3fyd-nsjOnpcFF-zk7ZzcIuQS7zij27OAr12rVdvMg0QSLqvzFcpnbsP0NCLKiQLH6h1bjsPSBbwqsutN5nbMAavd8W9"/>
+<button class="absolute bottom-0 right-0 bg-primary text-on-primary w-8 h-8 rounded-full flex items-center justify-center shadow-lg hover:bg-primary-container transition-colors">
+<span class="material-symbols-outlined text-sm">edit</span>
+</button>
+</div>
+<h2 class="font-headline-md text-headline-md text-primary mb-1">초보 식물 집사</h2>
+<div class="inline-flex items-center gap-2 bg-secondary/10 px-3 py-1 rounded-full text-secondary font-label-md text-label-md mb-6 border border-secondary/20"><span class="material-symbols-outlined text-sm">eco</span> 레벨 12</div>
+<p class="font-body-md text-body-md text-on-surface-variant mb-6">실내 정원과 지속 가능한 식물 케어에 열정을 가지고 있습니다. 특히 열대 식물을 좋아합니다.</p>
+<button class="w-full py-3 px-6 bg-surface border border-outline-variant rounded-lg font-label-md text-label-md text-primary hover:bg-surface-variant transition-colors flex items-center justify-center gap-2"><span class="material-symbols-outlined">person</span> 프로필 정보 수정</button>
+</div>
+</div>
+<!-- Settings Sections -->
+<div class="md:col-span-12 lg:col-span-8 flex flex-col gap-4">
+<!-- Account Settings -->
+<div class="glass-panel glass-ambient-shadow rounded-xl p-2 transition-all hover:shadow-[0_15px_40px_rgba(0,53,39,0.08)]">
+<a class="flex items-center justify-between p-4 md:p-6 rounded-lg hover:bg-surface/50 transition-colors group" href="#">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-full bg-primary-container/10 flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-on-primary transition-colors">
+<span class="material-symbols-outlined">manage_accounts</span>
+</div>
+<div>
+<h3 class="font-body-lg text-body-lg font-semibold text-on-surface">케어 알림</h3>
+<p class="font-body-md text-body-md text-on-surface-variant text-sm hidden md:block">급수 및 비료 알림 푸시 설정</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-outline group-hover:text-primary transition-colors">chevron_right</span>
+</a>
+</div>
+<!-- Care Reminders -->
+<div class="glass-panel glass-ambient-shadow rounded-xl p-2 transition-all hover:shadow-[0_15px_40px_rgba(0,53,39,0.08)]">
+<div class="flex items-center justify-between p-4 md:p-6 rounded-lg hover:bg-surface/50 transition-colors group">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-full bg-secondary-container/30 flex items-center justify-center text-secondary group-hover:bg-secondary group-hover:text-on-secondary transition-colors">
+<span class="material-symbols-outlined">notifications_active</span>
+</div>
+<div>
+<h3 class="font-body-lg text-body-lg font-semibold text-on-surface">케어 알림</h3>
+<p class="font-body-md text-body-md text-on-surface-variant text-sm hidden md:block">급수 및 비료 알림 푸시 설정</p>
+</div>
+</div>
+<!-- Toggle Switch -->
+<label class="relative inline-flex items-center cursor-pointer">
+<input checked="" class="sr-only peer" type="checkbox" value=""/>
+<div class="w-11 h-6 bg-surface-variant peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-primary-fixed rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-outline-variant after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+</label>
+</div>
+</div>
+<!-- AI Analysis Preferences -->
+<div class="glass-panel glass-ambient-shadow rounded-xl p-2 transition-all hover:shadow-[0_15px_40px_rgba(0,53,39,0.08)]">
+<a class="flex items-center justify-between p-4 md:p-6 rounded-lg hover:bg-surface/50 transition-colors group" href="#">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-full bg-primary-fixed/30 flex items-center justify-center text-primary group-hover:bg-primary-fixed group-hover:text-on-primary-fixed transition-colors">
+<span class="material-symbols-outlined">auto_awesome</span>
+</div>
+<div>
+<h3 class="font-body-lg text-body-lg font-semibold text-on-surface">AI 분석 설정</h3>
+<p class="font-body-md text-body-md text-on-surface-variant text-sm hidden md:block">진단 민감도 및 데이터 공유 구성</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-outline group-hover:text-primary transition-colors">chevron_right</span>
+</a>
+</div>
+<!-- Language & Region -->
+<div class="glass-panel glass-ambient-shadow rounded-xl p-2 transition-all hover:shadow-[0_15px_40px_rgba(0,53,39,0.08)]">
+<a class="flex items-center justify-between p-4 md:p-6 rounded-lg hover:bg-surface/50 transition-colors group" href="#">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-full bg-surface-variant/50 flex items-center justify-center text-on-surface-variant group-hover:bg-surface-variant group-hover:text-on-surface transition-colors">
+<span class="material-symbols-outlined">language</span>
+</div>
+<div>
+<h3 class="font-body-lg text-body-lg font-semibold text-on-surface">언어 및 지역</h3>
+<p class="font-body-md text-body-md text-on-surface-variant text-sm hidden md:block">한국어 (대한민국)</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-outline group-hover:text-primary transition-colors">chevron_right</span>
+</a>
+</div>
+<!-- Support -->
+<div class="glass-panel glass-ambient-shadow rounded-xl p-2 transition-all hover:shadow-[0_15px_40px_rgba(0,53,39,0.08)]">
+<a class="flex items-center justify-between p-4 md:p-6 rounded-lg hover:bg-surface/50 transition-colors group" href="#">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-full bg-surface-variant/50 flex items-center justify-center text-on-surface-variant group-hover:bg-surface-variant group-hover:text-on-surface transition-colors">
+<span class="material-symbols-outlined">help</span>
+</div>
+<div>
+<h3 class="font-body-lg text-body-lg font-semibold text-on-surface">고객 센터</h3>
+<p class="font-body-md text-body-md text-on-surface-variant text-sm hidden md:block">자주 묻는 질문, 문의하기 및 약관</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-outline group-hover:text-primary transition-colors">chevron_right</span>
+</a>
+</div>
+<!-- Log Out -->
+<div class="mt-4 pt-4 border-t border-outline-variant/30">
+<button class="flex items-center gap-4 p-4 rounded-lg hover:bg-error-container/50 text-error transition-colors w-full group">
+<div class="w-10 h-10 rounded-full bg-error-container/30 flex items-center justify-center group-hover:bg-error-container">
+<span class="material-symbols-outlined">logout</span>
+</div>
+<h3 class="font-body-lg text-body-lg font-semibold">로그아웃</h3>
+</button>
+</div>
+</div>
+</div>
+</main>
+<!-- Bottom Navigation Bar (Mobile Only) -->
+<nav class="md:hidden fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 pb-4 pt-2 bg-surface/70 backdrop-blur-xl rounded-t-lg shadow-[0_-10px_30px_rgba(0,53,39,0.05)] border-t border-white/30">
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined">home</span>
+<span class="font-label-md text-label-md mt-1 text-[10px]">홈</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined">potted_plant</span>
+<span class="font-label-md text-label-md mt-1 text-[10px]">컬렉션</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary transition-colors relative -top-4" href="#">
+<div class="bg-primary text-on-primary w-12 h-12 rounded-full flex items-center justify-center shadow-lg shadow-primary/20">
+<span class="material-symbols-outlined">인식</span>
+</div>
+<span class="font-label-md text-label-md mt-1 text-[10px] mt-2">인식</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined">history</span>
+<span class="font-label-md text-label-md mt-1 text-[10px]">히스토리</span>
+</a>
+<!-- Active State for Settings -->
+<a class="flex flex-col items-center justify-center bg-primary text-on-primary rounded-full px-4 py-1 scale-90 transition-transform duration-200" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">settings</span>
+<span class="font-label-md text-label-md mt-1 text-[10px]">설정</span>
+</a>
+</nav>
+</body></html>

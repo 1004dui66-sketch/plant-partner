@@ -1,0 +1,19 @@
+node_modules/
+.next/
+out/
+.vercel/
+
+.env
+.env.local
+.env*.local
+*.tsbuildinfo
+
+# OS / editor
+.DS_Store
+Thumbs.db
+*.log
+
+# 로컬·기획 문서 (저장소에는 코드·설정만)
+*.pdf
+*.hwpx
+*.docx

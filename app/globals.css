@@ -1,0 +1,79 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.material-symbols-outlined {
+  font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+}
+
+@layer utilities {
+  .glass-panel {
+    @apply bg-surface/70 backdrop-blur-[30px] border border-white/30 shadow-[0_10px_30px_rgba(0,53,39,0.05)];
+  }
+
+  .glass-card {
+    @apply bg-surface/70 backdrop-blur-[20px] border border-white/30 shadow-[0_10px_30px_rgba(0,53,39,0.05)] rounded-xl;
+  }
+
+  .glass-input {
+    @apply bg-white/50 backdrop-blur-[10px] border border-white/40 transition-all duration-300;
+  }
+
+  .glass-input:focus {
+    @apply bg-white/80 border-outline outline-none ring-2 ring-primary/10;
+  }
+
+  .glass-button-secondary {
+    @apply bg-secondary-fixed/20 backdrop-blur-[10px] border border-white/30 transition-all duration-200;
+  }
+
+  .glass-button-secondary:hover {
+    @apply bg-secondary-fixed/40;
+  }
+
+  .glass-ambient-shadow {
+    box-shadow: 0 10px 30px rgba(0, 53, 39, 0.05);
+  }
+}
+
+body {
+  min-height: max(884px, 100dvh);
+}
+
+.bg-organic-pattern {
+  background-color: #f7f9fb;
+  background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23e0e3e5' fill-opacity='0.4'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+}
+
+@keyframes botanical-pulse {
+  0% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(0, 53, 39, 0.7);
+  }
+  70% {
+    transform: scale(1);
+    box-shadow: 0 0 0 10px rgba(0, 53, 39, 0);
+  }
+  100% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(0, 53, 39, 0);
+  }
+}
+
+.botanical-marker::after {
+  content: '';
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  background: #003527;
+  border-radius: 50%;
+  animation: botanical-pulse 2s infinite;
+}
+
+.circular-progress {
+  transform: rotate(-90deg);
+}
+
+.activity-btn.selected {
+  @apply bg-secondary-fixed text-on-secondary-fixed border-primary;
+}
