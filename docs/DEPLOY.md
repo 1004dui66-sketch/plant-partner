@@ -2,25 +2,14 @@
 
 ## 1. GitHub 원격 저장소
 
-### A. GitHub 웹에서 저장소 만들기
+**저장소:** [1004dui66-sketch/plant-partner](https://github.com/1004dui66-sketch/plant-partner)
 
-1. [github.com/new](https://github.com/new) 에서 저장소 생성 (예: `plant-buddy` 또는 `식물도감`)
-2. **README / .gitignore 추가하지 않기** (로컬에 이미 있음)
-
-### B. 로컬에서 원격 연결 (최초 1회)
+로컬 `main`은 이미 `origin`에 push되어 있습니다. Vercel 프로젝트도 이 저장소와 연결되어 있습니다.
 
 ```powershell
 cd c:\dev\식물도감
-git remote add origin https://github.com/<YOUR_GITHUB_USER>/<REPO_NAME>.git
-git branch -M main
-git push -u origin main
-```
-
-### C. GitHub CLI로 한 번에 (선택)
-
-```powershell
-gh auth login
-gh repo create plant-buddy --private --source=. --remote=origin --push
+git remote -v
+git push origin main
 ```
 
 ---
@@ -33,6 +22,17 @@ gh repo create plant-buddy --private --source=. --remote=origin --push
 4. Root Directory: `.` (기본값)
 5. **Environment Variables** 아래 표를 Production·Preview에 동일하게 입력
 6. Deploy
+
+### 환경 변수 일괄 동기화 (선택)
+
+`.env.local`에 값이 채워져 있으면:
+
+```powershell
+npx vercel link --yes --project plant-partner
+node scripts/sync-vercel-env.mjs
+```
+
+`NEXT_PUBLIC_SUPABASE_*`가 비어 있으면 [Vercel Dashboard → plant-partner → Settings → Environment Variables](https://vercel.com)에서 직접 입력하세요.
 
 배포 후 Supabase **Authentication → URL Configuration** 에 Vercel 도메인을 추가합니다.
 
