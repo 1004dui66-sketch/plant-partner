@@ -2,9 +2,10 @@
 
 import Link from 'next/link';
 import { isRedirectError } from 'next/dist/client/components/redirect-error';
+import { useSearchParams } from 'next/navigation';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { MaterialIcon } from '@/components/ui/MaterialIcon';
-import { submitScanImage } from '@/lib/actions/scan';
+import { handleImageSubmit } from '@/lib/handlers/handle-image-submit';
 import {
   ACCEPTED_IMAGE_INPUT,
   type CameraFacingMode,
@@ -13,7 +14,6 @@ import {
   normalizeCaptureMimeType,
   validateImageFile,
 } from '@/lib/storage/camera';
-import { uploadAnalysisImage } from '@/lib/storage/upload-client';
 
 type ScanPhase = 'live' | 'preview' | 'uploading';
 
@@ -22,6 +22,7 @@ type ScanCameraProps = {
 };
 
 export const ScanCamera = ({ userId }: ScanCameraProps) => {
+  const searchParams = useSearchParams();
   const videoRef = useRef<HTMLVideoElement>(null);
   const streamRef = useRef<MediaStream | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -82,6 +83,14 @@ export const ScanCamera = ({ userId }: ScanCameraProps) => {
       stopStream();
     };
   }, [phase, startCamera, stopStream]);
+
+  useEffect(() => {
+    if (phase !== 'live' || searchParams.get('source') !== 'gallery') {
+      return;
+    }
+
+    fileInputRef.current?.click();
+  }, [phase, searchParams]);
 
   useEffect(
     () => () => {
@@ -165,17 +174,14 @@ export const ScanCamera = ({ userId }: ScanCameraProps) => {
 
     setPhase('uploading');
     setUploadError(null);
-    setProgressLabel('이미지 업로드 중...');
 
     try {
-      const storagePath = await uploadAnalysisImage({
+      await handleImageSubmit({
         file: previewBlob,
         userId,
         mimeType: previewMimeType,
+        onProgress: setProgressLabel,
       });
-
-      setProgressLabel('AI 분석 결과 저장 중...');
-      await submitScanImage(storagePath);
     } catch (error) {
       if (isRedirectError(error)) {
         throw error;

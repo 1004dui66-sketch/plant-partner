@@ -2,33 +2,39 @@ import {
   STORAGE_BUCKET,
   buildStoragePath,
   isAllowedMimeType,
-  type StorageAllowedMimeType,
 } from '@/lib/storage';
+import { buildPublicStorageUrl } from '@/lib/storage/public-url';
 import { createSupabaseBrowserClient } from '@/lib/supabase/client';
 import { buildAnalysisFileName } from '@/lib/storage/camera';
 
-export type UploadAnalysisImageInput = {
+export type UploadPlantImageInput = {
   file: Blob;
   userId: string;
   mimeType: string;
 };
 
-export const uploadAnalysisImage = async ({
+export type UploadPlantImageResult = {
+  readonly storagePath: string;
+  readonly publicUrl: string;
+};
+
+/** plant-images 버킷에 업로드하고 Public URL을 반환 */
+export const uploadPlantImage = async ({
   file,
   userId,
   mimeType,
-}: UploadAnalysisImageInput): Promise<string> => {
+}: UploadPlantImageInput): Promise<UploadPlantImageResult> => {
   if (!isAllowedMimeType(mimeType)) {
     throw new Error('지원하지 않는 이미지 형식입니다.');
   }
 
   const supabase = createSupabaseBrowserClient();
   const fileName = buildAnalysisFileName(mimeType);
-  const path = buildStoragePath(userId, 'analyses', fileName);
+  const storagePath = buildStoragePath(userId, 'analyses', fileName);
 
   const { error } = await supabase.storage
     .from(STORAGE_BUCKET)
-    .upload(path, file, {
+    .upload(storagePath, file, {
       contentType: mimeType,
       upsert: false,
     });
@@ -37,5 +43,16 @@ export const uploadAnalysisImage = async ({
     throw new Error(error.message);
   }
 
-  return path;
+  return {
+    storagePath,
+    publicUrl: buildPublicStorageUrl(storagePath),
+  };
+};
+
+/** @deprecated uploadPlantImage 사용 */
+export const uploadAnalysisImage = async (
+  input: UploadPlantImageInput,
+): Promise<string> => {
+  const { publicUrl } = await uploadPlantImage(input);
+  return publicUrl;
 };

@@ -1,16 +1,6 @@
-import type { PlantStatus } from './plants';
-import type { PlantCategory } from '@/types/database';
+import type { PlantCardData } from '@/types/plant-card';
 
-export type PlantCardData = {
-  id: string;
-  plantName: string;
-  nickname: string;
-  imageUrl: string;
-  category: PlantCategory;
-  status: PlantStatus;
-  statusLabel: string;
-  lastWatered: string;
-};
+export type { PlantCardData } from '@/types/plant-card';
 
 export const MOCK_PLANTS: PlantCardData[] = [
   {

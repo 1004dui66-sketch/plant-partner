@@ -3,6 +3,7 @@ import {
   assertAnalysisStoragePath,
   isStoragePath,
 } from './resolve-image-url';
+import { parseStoragePathFromPublicUrl } from './public-url';
 
 describe('resolve-image-url helpers', () => {
   const userId = '00000000-0000-4000-8000-000000000001';
@@ -23,5 +24,14 @@ describe('resolve-image-url helpers', () => {
     expect(() =>
       assertAnalysisStoragePath(userId, 'other-user/analyses/abc.jpg'),
     ).toThrow('유효하지 않은 이미지 경로');
+  });
+
+  it('public URL에서 storage path를 파싱한다', () => {
+    const publicUrl =
+      'https://abc123.supabase.co/storage/v1/object/public/plant-images/' +
+      `${userId}/analyses/abc.jpg`;
+
+    expect(() => assertAnalysisStoragePath(userId, `${userId}/analyses/abc.jpg`)).not.toThrow();
+    expect(parseStoragePathFromPublicUrl(publicUrl)).toBe(`${userId}/analyses/abc.jpg`);
   });
 });

@@ -40,7 +40,6 @@ type SettingsViewProps = {
   displayName: string;
   bio: string;
   careAlertsEnabled: boolean;
-  plantCount: number;
 };
 
 export const SettingsView = ({
@@ -48,7 +47,6 @@ export const SettingsView = ({
   displayName,
   bio,
   careAlertsEnabled,
-  plantCount,
 }: SettingsViewProps) => (
   <AppShell sideNavActive="/settings">
     <main className="pt-24 md:pt-16 px-gutter md:px-margin-desktop max-w-container-max mx-auto pb-24 md:pb-12">
@@ -69,7 +67,6 @@ export const SettingsView = ({
             displayName={displayName}
             bio={bio}
             careAlertsEnabled={careAlertsEnabled}
-            plantCount={plantCount}
           />
         </GlassPanel>
 

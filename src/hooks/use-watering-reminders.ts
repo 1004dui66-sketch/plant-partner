@@ -3,8 +3,7 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { fetchWateringReminderInputs } from '@/lib/repositories/watering-reminders';
-import { createSupabaseBrowserClient } from '@/lib/supabase/client';
-import type { AppSupabaseClient } from '@/lib/supabase/types';
+import { useSupabase } from '@/components/providers/SupabaseProvider';
 import {
   buildWateringReminders,
   countOverdueWateringReminders,
@@ -26,6 +25,7 @@ export type UseWateringRemindersResult = {
 
 export const useWateringReminders = (): UseWateringRemindersResult => {
   const router = useRouter();
+  const supabase = useSupabase();
   const [reminders, setReminders] = useState<WateringReminder[]>([]);
   const [highlightActive, setHighlightActive] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -36,7 +36,6 @@ export const useWateringReminders = (): UseWateringRemindersResult => {
     setError(null);
 
     try {
-      const supabase = createSupabaseBrowserClient() as unknown as AppSupabaseClient;
       const {
         data: { user },
       } = await supabase.auth.getUser();
@@ -58,7 +57,7 @@ export const useWateringReminders = (): UseWateringRemindersResult => {
     } finally {
       setIsLoading(false);
     }
-  }, []);
+  }, [supabase]);
 
   useEffect(() => {
     void refresh();

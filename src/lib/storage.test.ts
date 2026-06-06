@@ -35,6 +35,19 @@ describe('storage migration', () => {
   });
 });
 
+describe('public bucket migration', () => {
+  const publicMigrationPath = join(
+    dirname(fileURLToPath(import.meta.url)),
+    '../../supabase/migrations/20260531000006_plant_images_public_bucket.sql',
+  );
+  const publicMigrationSql = readFileSync(publicMigrationPath, 'utf8');
+
+  it('plant-images 버킷을 public으로 전환한다', () => {
+    expect(publicMigrationSql).toContain('set public = true');
+    expect(publicMigrationSql).toContain(`'${STORAGE_BUCKET}'`);
+  });
+});
+
 describe('buildStoragePath', () => {
   const userId = '00000000-0000-4000-8000-000000000001';
   const plantId = '00000000-0000-4000-8000-000000000002';

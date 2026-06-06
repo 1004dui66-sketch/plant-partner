@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { Hanken_Grotesk, Playfair_Display } from 'next/font/google';
 import { APP_NAME } from '@/config/navigation';
+import { SupabaseProvider } from '@/components/providers/SupabaseProvider';
 import './globals.css';
 
 const hanken = Hanken_Grotesk({
@@ -33,7 +34,9 @@ export default function RootLayout({
           rel="stylesheet"
         />
       </head>
-      <body>{children}</body>
+      <body>
+        <SupabaseProvider>{children}</SupabaseProvider>
+      </body>
     </html>
   );
 }

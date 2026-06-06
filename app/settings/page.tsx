@@ -1,6 +1,5 @@
 import { redirect } from 'next/navigation';
 import { SettingsView } from '@/components/settings/SettingsView';
-import { countUserPlants } from '@/lib/repositories/plants';
 import {
   createSupabaseServerClient,
   getSessionUser,
@@ -16,10 +15,11 @@ export default async function SettingsPage() {
 
   const supabase = await createSupabaseServerClient();
 
-  const [{ data: profile }, plantCount] = await Promise.all([
-    supabase.from('profiles').select('*').eq('id', user.id).maybeSingle(),
-    countUserPlants(supabase, user.id),
-  ]);
+  const { data: profile } = await supabase
+    .from('profiles')
+    .select('*')
+    .eq('id', user.id)
+    .maybeSingle();
 
   return (
     <SettingsView
@@ -30,7 +30,6 @@ export default async function SettingsPage() {
         '실내 정원과 지속 가능한 식물 케어에 열정을 가지고 있습니다.'
       }
       careAlertsEnabled={profile?.care_alerts_enabled ?? true}
-      plantCount={plantCount}
     />
   );
 }

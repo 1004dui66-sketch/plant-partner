@@ -1,5 +1,7 @@
+import React from 'react';
 import { renderHook, waitFor } from '@testing-library/react';
 import { afterEach, describe, expect, it, vi } from 'vitest';
+import { SupabaseProvider } from '@/components/providers/SupabaseProvider';
 import { useWateringReminders } from './use-watering-reminders';
 
 const mockPush = vi.fn();
@@ -14,11 +16,16 @@ vi.mock('@/lib/supabase/client', () => ({
   createSupabaseBrowserClient: () => ({
     auth: { getUser: mockGetUser },
   }),
+  resetSupabaseBrowserClientForTests: vi.fn(),
 }));
 
 vi.mock('@/lib/repositories/watering-reminders', () => ({
   fetchWateringReminderInputs: (...args: unknown[]) => mockFetchInputs(...args),
 }));
+
+const wrapper = ({ children }: { children: React.ReactNode }) => (
+  <SupabaseProvider>{children}</SupabaseProvider>
+);
 
 describe('useWateringReminders', () => {
   afterEach(() => {
@@ -36,7 +43,7 @@ describe('useWateringReminders', () => {
       },
     ]);
 
-    const { result } = renderHook(() => useWateringReminders());
+    const { result } = renderHook(() => useWateringReminders(), { wrapper });
 
     await waitFor(() => {
       expect(result.current.overdueCount).toBe(1);

@@ -1,6 +1,8 @@
 import type { AppSupabaseClient } from '@/lib/supabase/types';
 import { DEFAULT_SCAN_IMAGE } from '@/lib/constants';
 import { inferPlantCategory } from '@/lib/plants';
+import { countActiveUserPlants } from '@/lib/repositories/plants';
+import { syncCaretakerProgress } from '@/lib/repositories/profiles';
 import { analyzeScanImage } from '@/lib/scan/analyze-scan-image';
 import type { Analysis, Plant } from '@/types/database';
 
@@ -69,6 +71,7 @@ export const addPlantFromAnalysis = async (
       nickname: input.nickname ?? null,
       image_url: analysis.image_url,
       category: inferPlantCategory(analysis.plant_name),
+      is_active: true,
     })
     .select('*')
     .single();
@@ -81,6 +84,9 @@ export const addPlantFromAnalysis = async (
     .from('analyses')
     .update({ plant_id: plant.id })
     .eq('id', analysis.id);
+
+  const activeCount = await countActiveUserPlants(supabase, input.userId);
+  await syncCaretakerProgress(supabase, input.userId, activeCount);
 
   return plant;
 };

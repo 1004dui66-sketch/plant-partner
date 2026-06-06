@@ -3,6 +3,7 @@
 import type { ReactNode } from 'react';
 import { BottomNav, MobileHeader } from './MobileHeader';
 import { SideNav } from './SideNav';
+import { UserDashboardProvider } from './UserDashboardProvider';
 import { WateringRemindersProvider } from './WateringRemindersProvider';
 
 type AppShellProps = {
@@ -24,7 +25,8 @@ export const AppShell = ({
   sideNavMainActive,
   className = '',
 }: AppShellProps) => (
-  <WateringRemindersProvider>
+  <UserDashboardProvider>
+    <WateringRemindersProvider>
     <div
       className={`bg-background text-on-background font-body-md antialiased min-h-screen relative overflow-x-hidden ${className}`}
     >
@@ -39,4 +41,5 @@ export const AppShell = ({
       {showBottomNav && <BottomNav />}
     </div>
   </WateringRemindersProvider>
+  </UserDashboardProvider>
 );

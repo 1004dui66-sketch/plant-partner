@@ -1,10 +1,10 @@
 import type { AppSupabaseClient } from '@/lib/supabase/types';
 import { DEFAULT_PLANT_IMAGE } from '@/lib/constants';
-import type { PlantCardData } from '@/lib/mock-plants';
+import type { PlantCardData } from '@/types/plant-card';
 import { resolveImageUrl } from '@/lib/storage/resolve-image-url';
 import type { PlantStatus } from '@/lib/plants';
+import { syncCaretakerProgress } from '@/lib/repositories/profiles';
 import type { Analysis, Plant } from '@/types/database';
-
 type PlantWithLogs = Plant & {
   growth_logs: Array<{ activity_type: string; created_at: string }> | null;
 };
@@ -82,6 +82,7 @@ export const fetchPlantCards = async (
     .from('plants')
     .select('*, growth_logs(activity_type, created_at)')
     .eq('user_id', userId)
+    .eq('is_active', true)
     .order('created_at', { ascending: false });
 
   if (error) {
@@ -141,6 +142,23 @@ export const fetchLatestAnalysis = async (
   return data;
 };
 
+export const countActiveUserPlants = async (
+  supabase: AppSupabaseClient,
+  userId: string,
+): Promise<number> => {
+  const { count, error } = await supabase
+    .from('plants')
+    .select('*', { count: 'exact', head: true })
+    .eq('user_id', userId)
+    .eq('is_active', true);
+
+  if (error) {
+    throw new Error(error.message);
+  }
+
+  return count ?? 0;
+};
+
 export const countUserPlants = async (
   supabase: AppSupabaseClient,
   userId: string,
@@ -192,4 +210,7 @@ export const deletePlantById = async (
   if (error) {
     throw new Error(error.message);
   }
+
+  const activeCount = await countActiveUserPlants(supabase, userId);
+  await syncCaretakerProgress(supabase, userId, activeCount);
 };

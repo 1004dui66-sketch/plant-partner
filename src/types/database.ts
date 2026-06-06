@@ -4,6 +4,8 @@ export type Profile = {
   display_name: string | null;
   bio: string | null;
   care_alerts_enabled: boolean;
+  caretaker_level: number;
+  caretaker_tier: string;
 };
 
 export type PlantCategory = '실내' | '실외' | '다육식물';
@@ -16,6 +18,7 @@ export type Plant = {
   scientific_name: string | null;
   image_url: string | null;
   category: PlantCategory;
+  is_active: boolean;
   created_at: string;
 };
 
@@ -54,12 +57,16 @@ export type Database = {
           display_name?: string | null;
           bio?: string | null;
           care_alerts_enabled?: boolean;
+          caretaker_level?: number;
+          caretaker_tier?: string;
           created_at?: string;
         };
         Update: {
           display_name?: string | null;
           bio?: string | null;
           care_alerts_enabled?: boolean;
+          caretaker_level?: number;
+          caretaker_tier?: string;
           created_at?: string;
         };
       };
@@ -72,6 +79,7 @@ export type Database = {
           scientific_name?: string | null;
           image_url?: string | null;
           category?: PlantCategory;
+          is_active?: boolean;
           id?: string;
           created_at?: string;
         };

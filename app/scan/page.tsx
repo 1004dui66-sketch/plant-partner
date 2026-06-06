@@ -1,3 +1,4 @@
+import { Suspense } from 'react';
 import { redirect } from 'next/navigation';
 import { ScanCamera } from '@/components/scan/ScanCamera';
 import { getSessionUser } from '@/lib/supabase/server';
@@ -11,5 +12,9 @@ export default async function ScanPage() {
     redirect('/login');
   }
 
-  return <ScanCamera userId={user.id} />;
+  return (
+    <Suspense fallback={null}>
+      <ScanCamera userId={user.id} />
+    </Suspense>
+  );
 }

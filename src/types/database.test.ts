@@ -7,6 +7,8 @@ const sampleProfile: Profile = {
   display_name: '초보 식물 집사',
   bio: null,
   care_alerts_enabled: true,
+  caretaker_level: 1,
+  caretaker_tier: '초보 식집사',
 };
 
 const samplePlant: Plant = {
@@ -17,6 +19,7 @@ const samplePlant: Plant = {
   scientific_name: 'Monstera deliciosa',
   image_url: null,
   category: '실내',
+  is_active: true,
   created_at: sampleProfile.created_at,
 };
 

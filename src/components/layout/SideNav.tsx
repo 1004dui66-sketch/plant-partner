@@ -10,6 +10,7 @@ import {
   isSideNavMainActive,
 } from '@/config/navigation';
 import { useWateringRemindersContext } from '@/components/layout/WateringRemindersProvider';
+import { useUserDashboardContext } from '@/components/layout/UserDashboardProvider';
 import { MaterialIcon } from '@/components/ui/MaterialIcon';
 import { NotificationBadge } from '@/components/ui/NotificationBadge';
 
@@ -28,10 +29,15 @@ export const SideNav = ({ activeOverride, mainNavActive }: SideNavProps) => {
   const pathname = usePathname();
   const {
     overdueCount,
-    plantCount,
     handleWateringRemindersClick,
     isLoading,
   } = useWateringRemindersContext();
+  const {
+    displayName,
+    caretakerLabel,
+    activePlantsLabel,
+    isLoading: isDashboardLoading,
+  } = useUserDashboardContext();
 
   return (
     <nav className="hidden md:flex fixed inset-y-0 left-0 z-[60] flex-col py-6 bg-surface h-full w-80 rounded-r-lg shadow-2xl border-r border-white/30 glass-panel">
@@ -44,13 +50,13 @@ export const SideNav = ({ activeOverride, mainNavActive }: SideNavProps) => {
           className="rounded-full object-cover mb-4 border-2 border-primary-container/20 shadow-sm shadow-primary/10"
         />
         <h2 className="font-headline-md text-primary text-xl font-semibold">
-          식물 탐험가
+          {isDashboardLoading ? '불러오는 중...' : displayName}
         </h2>
         <p className="font-label-md text-label-md text-secondary mt-1 bg-secondary-container/50 px-2 py-0.5 rounded-full inline-block">
-          Lv.12 식물 집사
+          {isDashboardLoading ? '—' : caretakerLabel}
         </p>
         <p className="font-body-md text-on-surface-variant text-sm mt-1">
-          활성 식물 {plantCount}개
+          {isDashboardLoading ? '—' : activePlantsLabel}
         </p>
       </div>
 

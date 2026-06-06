@@ -6,6 +6,8 @@ import { useMemo, useState } from 'react';
 import { AppShell } from '@/components/layout/AppShell';
 import { useWateringRemindersContext } from '@/components/layout/WateringRemindersProvider';
 import { CollectionSearchBar } from '@/components/collection/CollectionSearchBar';
+import { DashboardUserStatusBar } from '@/components/dashboard/DashboardUserStatusBar';
+import { EncyclopediaHeader } from '@/components/collection/EncyclopediaHeader';
 import { PlantCard } from '@/components/collection/PlantCard';
 import { MaterialIcon } from '@/components/ui/MaterialIcon';
 import { isWateringRemindersQuery } from '@/config/navigation';
@@ -55,6 +57,9 @@ const CollectionContent = ({ plants }: CollectionViewProps) => {
 
   return (
     <main className="pt-24 px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto">
+      <DashboardUserStatusBar className="mb-stack-md md:hidden" />
+      <EncyclopediaHeader />
+
       {wateringFilterActive ? (
         <section className="mb-stack-md glass-panel rounded-xl p-4 flex items-center gap-3 shadow-[0_10px_30px_rgba(0,53,39,0.05)]">
           <MaterialIcon name="water_drop" filled className="text-error" />

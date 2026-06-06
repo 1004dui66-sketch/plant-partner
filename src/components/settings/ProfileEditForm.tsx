@@ -2,6 +2,7 @@
 
 import Image from 'next/image';
 import { useActionState, useState } from 'react';
+import { useUserDashboardContext } from '@/components/layout/UserDashboardProvider';
 import { MaterialIcon } from '@/components/ui/MaterialIcon';
 import {
   updateProfile,
@@ -16,7 +17,6 @@ type ProfileEditFormProps = {
   displayName: string;
   bio: string;
   careAlertsEnabled: boolean;
-  plantCount: number;
 };
 
 const initialState: ProfileActionResult = {};
@@ -26,10 +26,10 @@ export const ProfileEditForm = ({
   displayName,
   bio,
   careAlertsEnabled,
-  plantCount,
 }: ProfileEditFormProps) => {
   const [editing, setEditing] = useState(false);
   const [state, formAction, pending] = useActionState(updateProfile, initialState);
+  const { caretakerLabel, activePlantCount } = useUserDashboardContext();
 
   if (!editing) {
     return (
@@ -60,7 +60,7 @@ export const ProfileEditForm = ({
         </h2>
         <div className="inline-flex items-center gap-2 bg-secondary/10 px-3 py-1 rounded-full text-secondary font-label-md text-label-md mb-4 border border-secondary/20">
           <MaterialIcon name="eco" className="text-sm" />
-          레벨 12 · {plantCount}개 식물
+          {caretakerLabel} · {activePlantCount}개 식물
         </div>
         <p className="font-body-md text-body-md text-on-surface-variant mb-6">
           {bio}
