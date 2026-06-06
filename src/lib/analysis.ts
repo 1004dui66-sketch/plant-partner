@@ -47,9 +47,23 @@ export const parseCareSummary = (
 
 export const formatConfidence = (confidence: number | null | undefined): string => {
   if (confidence === null || confidence === undefined) {
-    return `${Math.round(DEFAULT_CONFIDENCE * 100)}% Accuracy`;
+    return `${Math.round(DEFAULT_CONFIDENCE * 100)}% 정확도`;
   }
 
   const percent = confidence <= 1 ? confidence * 100 : confidence;
-  return `${Math.round(percent)}% Accuracy`;
+  return `${Math.round(percent)}% 정확도`;
+};
+
+const HEALTH_STATUS_LABELS: Record<string, string> = {
+  healthy: '건강함',
+  'needs-attention': '관리 필요',
+  unknown: '확인 필요',
+};
+
+export const formatHealthStatus = (status: string | null | undefined): string => {
+  if (!status) {
+    return '확인 필요';
+  }
+
+  return HEALTH_STATUS_LABELS[status] ?? status;
 };

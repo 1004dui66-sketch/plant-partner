@@ -66,11 +66,15 @@ node scripts/sync-vercel-env.mjs
 | `DATA_GO_KR_BAEKDU_PLANT_URL` | 백두대간 보호식물 | `.env.example` 참고 |
 | `DATA_GO_KR_SEED_BOOK_URL` | 종자자료집 | `.env.example` 참고 |
 
-### 선택 (추후 Vision 연동 시)
+### Google AI Studio / Gemini (스캔 이미지 식별, 서버 전용)
 
-| 변수 | 설명 |
-|------|------|
-| `OPENAI_API_KEY` | 이미지 식별용 (미구현 시 불필요) |
+| 변수 | 설명 | 비고 |
+|------|------|------|
+| `GEMINI_API_KEY` | [Google AI Studio](https://aistudio.google.com/apikey) API key | `NEXT_PUBLIC_` 붙이지 않음 |
+| `GOOGLE_AI_API_KEY` | `GEMINI_API_KEY` 대체 이름 | 둘 중 하나만 설정 |
+| `GEMINI_MODEL` | 모델 ID (선택) | 기본 `gemini-2.5-flash` |
+
+미설정 시 스캔은 mock 식물명 + 공공데이터 보강만 사용합니다.
 
 ---
 

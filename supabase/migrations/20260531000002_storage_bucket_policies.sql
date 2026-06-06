@@ -1,16 +1,7 @@
-insert into storage.buckets (id, name, public, file_size_limit, allowed_mime_types)
-values (
-  'plant-images',
-  'plant-images',
-  false,
-  5242880,
-  array['image/jpeg', 'image/png', 'image/webp', 'image/heic']
-)
+insert into storage.buckets (id, name, public)
+values ('plant-images', 'plant-images', false)
 on conflict (id) do update
-set
-  public = excluded.public,
-  file_size_limit = excluded.file_size_limit,
-  allowed_mime_types = excluded.allowed_mime_types;
+set public = excluded.public;
 
 create policy "plant_images_select_own"
   on storage.objects for select

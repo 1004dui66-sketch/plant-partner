@@ -1,7 +1,7 @@
 import type { AppSupabaseClient } from '@/lib/supabase/types';
-import { DEFAULT_SCAN_IMAGE, MOCK_ANALYSIS_RESULT } from '@/lib/constants';
-import { enrichPlantAnalysis } from '@/lib/public-data/enrich-plant-analysis';
+import { DEFAULT_SCAN_IMAGE } from '@/lib/constants';
 import { inferPlantCategory } from '@/lib/plants';
+import { analyzeScanImage } from '@/lib/scan/analyze-scan-image';
 import type { Analysis, Plant } from '@/types/database';
 
 export type AnalysisInput = {
@@ -14,7 +14,7 @@ export const createAnalysisFromScan = async (
   supabase: AppSupabaseClient,
   input: AnalysisInput,
 ): Promise<Analysis> => {
-  const result = await enrichPlantAnalysis(MOCK_ANALYSIS_RESULT.plantName);
+  const result = await analyzeScanImage(supabase, input.imageUrl);
 
   const { data, error } = await supabase
     .from('analyses')

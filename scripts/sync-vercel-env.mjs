@@ -18,6 +18,9 @@ const KEYS = [
   'DATA_GO_KR_STANDARD_PLANT_OPERATION',
   'DATA_GO_KR_BAEKDU_PLANT_URL',
   'DATA_GO_KR_SEED_BOOK_URL',
+  'GEMINI_API_KEY',
+  'GOOGLE_AI_API_KEY',
+  'GEMINI_MODEL',
 ];
 
 const ENVIRONMENTS = ['production', 'preview'];
@@ -34,10 +37,24 @@ const parseEnv = (text) =>
       .filter(([key]) => key.length > 0),
   );
 
+const PRODUCTION_SITE_URL = 'https://plant-partner.vercel.app';
+
+const getValueForVercel = (key, value, environment) => {
+  if (key === 'NEXT_PUBLIC_SITE_URL') {
+    return PRODUCTION_SITE_URL;
+  }
+  return value;
+};
+
+const isSensitive = (key) =>
+  key === 'DATA_GO_KR_SERVICE_KEY' ||
+  key === 'GEMINI_API_KEY' ||
+  key === 'GOOGLE_AI_API_KEY';
+
 const addEnv = (key, value, environment) => {
-  const escaped = value.replace(/"/g, '\\"');
+  const sensitiveFlag = isSensitive(key) ? ' --sensitive' : '';
   execSync(
-    `npx vercel env add ${key} ${environment} --yes --force --value "${escaped}"`,
+    `npx vercel env add ${key} ${environment} --yes --force --value ${JSON.stringify(value)}${sensitiveFlag}`,
     { stdio: 'inherit', encoding: 'utf8' },
   );
 };
@@ -58,8 +75,9 @@ for (const key of KEYS) {
   }
 
   for (const environment of ENVIRONMENTS) {
+    const vercelValue = getValueForVercel(key, value, environment);
     console.log(`[sync] ${key} → ${environment}`);
-    addEnv(key, value, environment);
+    addEnv(key, vercelValue, environment);
     synced += 1;
   }
 }

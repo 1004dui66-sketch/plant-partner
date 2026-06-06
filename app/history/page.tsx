@@ -22,7 +22,7 @@ export default async function HistoryPage() {
   const sections = groupHistoryBySection(entries);
 
   return (
-    <AppShell>
+    <AppShell sideNavMainActive="/history">
       <div className="fixed inset-0 z-[-1] pointer-events-none overflow-hidden">
         <div className="absolute top-[-20%] left-[-10%] w-[70vw] h-[70vw] rounded-full bg-secondary-fixed/30 blur-[100px] opacity-60" />
         <div className="absolute bottom-[-20%] right-[-10%] w-[60vw] h-[60vw] rounded-full bg-primary-fixed/20 blur-[120px] opacity-50" />

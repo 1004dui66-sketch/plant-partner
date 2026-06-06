@@ -112,6 +112,9 @@ const config: Config = {
           '50%': { width: '70%' },
           '100%': { width: '85%' },
         },
+        shimmer: {
+          '100%': { transform: 'translateX(100%)' },
+        },
         pulse: {
           '0%, 100%': { transform: 'scale(0.95)' },
           '70%': { transform: 'scale(1)' },
@@ -120,6 +123,7 @@ const config: Config = {
       animation: {
         scan: 'scan-line 3s cubic-bezier(0.4, 0, 0.2, 1) infinite',
         progress: 'progress-fill 2s ease-out forwards',
+        shimmer: 'shimmer 1.5s infinite',
       },
     },
   },

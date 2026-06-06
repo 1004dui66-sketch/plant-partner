@@ -37,7 +37,7 @@ export const computePlantStatus = (
   if (days >= 7) {
     return {
       status: 'needs-sun',
-      statusLabel: '관리 필요',
+      statusLabel: '햇빛 필요',
       lastWatered: `${days}일 전`,
     };
   }

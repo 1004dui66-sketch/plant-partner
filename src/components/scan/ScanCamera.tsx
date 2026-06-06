@@ -34,6 +34,7 @@ export const ScanCamera = ({ userId }: ScanCameraProps) => {
   const [previewMimeType, setPreviewMimeType] = useState('image/jpeg');
   const [uploadError, setUploadError] = useState<string | null>(null);
   const [progressLabel, setProgressLabel] = useState('식물을 프레임 안에 맞춰 주세요');
+  const [flashOn, setFlashOn] = useState(false);
 
   const stopStream = useCallback(() => {
     streamRef.current?.getTracks().forEach((track) => track.stop());
@@ -215,9 +216,7 @@ export const ScanCamera = ({ userId }: ScanCameraProps) => {
                 <div className="absolute bottom-0 right-0 w-6 h-6 border-b-4 border-r-4 border-primary-fixed rounded-br-xl" />
               </div>
             </div>
-            {isUploading ? (
-              <div className="absolute top-0 left-0 w-full h-[2px] bg-primary-fixed shadow-[0_0_15px_rgba(176,240,214,0.8)] animate-scan pointer-events-none z-10" />
-            ) : null}
+            <div className="absolute top-0 left-0 w-full h-[2px] bg-primary-fixed shadow-[0_0_15px_rgba(176,240,214,0.8)] animate-scan pointer-events-none z-10" />
           </>
         ) : (
           previewUrl && (
@@ -243,12 +242,12 @@ export const ScanCamera = ({ userId }: ScanCameraProps) => {
         {phase === 'live' ? (
           <button
             type="button"
-            aria-label="카메라 전환"
-            onClick={toggleFacingMode}
+            aria-label="플래시"
+            onClick={() => setFlashOn((value) => !value)}
             disabled={isUploading}
             className="w-12 h-12 rounded-full bg-surface/20 backdrop-blur-md border border-white/30 flex items-center justify-center text-white hover:bg-surface/30 transition-colors shadow-lg disabled:opacity-50"
           >
-            <MaterialIcon name="cameraswitch" />
+            <MaterialIcon name={flashOn ? 'flash_off' : 'flash_on'} />
           </button>
         ) : (
           <div className="w-12 h-12" />
@@ -263,8 +262,11 @@ export const ScanCamera = ({ userId }: ScanCameraProps) => {
         </div>
       ) : null}
 
-      {phase !== 'uploading' ? (
-        <div className="absolute bottom-40 w-full z-10 flex justify-center items-center gap-8 px-8">
+      <div
+        className={`absolute bottom-40 w-full z-10 flex justify-center items-center gap-8 px-8 transition-all duration-500 ${
+          isUploading ? 'opacity-50 blur-sm pointer-events-none' : ''
+        }`}
+      >
           <button
             type="button"
             aria-label="갤러리에서 선택"
@@ -300,10 +302,9 @@ export const ScanCamera = ({ userId }: ScanCameraProps) => {
             onClick={phase === 'preview' ? resetPreview : toggleFacingMode}
             className="w-14 h-14 rounded-full bg-surface/20 backdrop-blur-md border border-white/30 flex items-center justify-center text-white hover:bg-surface/30 transition-colors"
           >
-            <MaterialIcon name={phase === 'preview' ? 'refresh' : 'cameraswitch'} />
-          </button>
-        </div>
-      ) : null}
+          <MaterialIcon name={phase === 'preview' ? 'refresh' : 'cameraswitch'} />
+        </button>
+      </div>
 
       <input
         ref={fileInputRef}
@@ -321,7 +322,9 @@ export const ScanCamera = ({ userId }: ScanCameraProps) => {
                 {isUploading ? '분석 중...' : phase === 'preview' ? '미리보기' : '식물 스캔'}
               </h2>
               <p className="font-body-md text-body-md text-on-surface-variant mt-1">
-                {progressLabel}
+                {isUploading
+                  ? '식물을 구조하고 있습니다'
+                  : progressLabel}
               </p>
             </div>
             <div
@@ -338,9 +341,27 @@ export const ScanCamera = ({ userId }: ScanCameraProps) => {
           </div>
 
           {isUploading ? (
-            <div className="w-full h-2 bg-surface-variant rounded-full overflow-hidden shadow-inner">
-              <div className="h-full bg-primary rounded-full animate-progress" />
-            </div>
+            <>
+              <div className="w-full h-2 bg-surface-variant rounded-full overflow-hidden shadow-inner">
+                <div className="h-full bg-primary rounded-full animate-progress relative overflow-hidden">
+                  <div className="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-white/30 to-transparent -translate-x-full animate-shimmer" />
+                </div>
+              </div>
+              <div className="flex flex-wrap gap-3 mt-2">
+                <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-primary-fixed-dim/20 border border-primary/20 shadow-sm backdrop-blur-sm">
+                  <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
+                  <span className="font-label-md text-label-md text-primary tracking-wide">
+                    종 분석 중...
+                  </span>
+                </div>
+                <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-surface-variant/50 border border-outline-variant/30 text-on-surface-variant">
+                  <MaterialIcon name="water_drop" className="text-[16px]" />
+                  <span className="font-label-md text-label-md">
+                    건강 상태 해석 중...
+                  </span>
+                </div>
+              </div>
+            </>
           ) : null}
 
           {uploadError ? (

@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { Hanken_Grotesk, Playfair_Display } from 'next/font/google';
+import { APP_NAME } from '@/config/navigation';
 import './globals.css';
 
 const hanken = Hanken_Grotesk({
@@ -15,7 +16,7 @@ const playfair = Playfair_Display({
 });
 
 export const metadata: Metadata = {
-  title: 'Plant Buddy',
+  title: APP_NAME,
   description: 'AI 기반 식물 관리 앱',
 };
 

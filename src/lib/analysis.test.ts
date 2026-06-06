@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import {
   formatConfidence,
+  formatHealthStatus,
   parseCareSummary,
 } from './analysis';
 
@@ -19,7 +20,12 @@ describe('analysis helpers', () => {
   });
 
   it('confidence를 퍼센트 문자열로 변환한다', () => {
-    expect(formatConfidence(0.98)).toBe('98% Accuracy');
-    expect(formatConfidence(null)).toBe('98% Accuracy');
+    expect(formatConfidence(0.98)).toBe('98% 정확도');
+    expect(formatConfidence(null)).toBe('98% 정확도');
+  });
+
+  it('건강 상태 코드를 한글로 변환한다', () => {
+    expect(formatHealthStatus('healthy')).toBe('건강함');
+    expect(formatHealthStatus('needs-attention')).toBe('관리 필요');
   });
 });

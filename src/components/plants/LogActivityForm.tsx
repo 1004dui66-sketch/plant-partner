@@ -9,6 +9,9 @@ import {
   type LogActionResult,
 } from '@/lib/actions/growth-logs';
 
+const LOG_BACKGROUND =
+  'https://lh3.googleusercontent.com/aida-public/AB6AXuBbsEvvPeaSgi_6XNcZmrn4YqMO-uvNqGkoO9xIz9dLjmSn4N8JbaRCacQ7J1t0foJ2lWiDGNKZycgHSTZRWdFiFpLwA5zIxRKxDGUdscbAQAVzICXnetgAeK24Sha0KTSTlJAtEmae7QmnC6_caEOnRTJmd5x67tnE47ZyxlXjwEQnoo62q7WsrntzMSe6_FFuClj2s0jSPr0lju2mv_B-iankH4zIJ2ekKc9C8JkiqjFGyoojV_DJAsv8AMWekIbxuEJmbsWpqhd-';
+
 type LogActivityFormProps = {
   plantId: string;
   plantName: string;
@@ -42,7 +45,10 @@ export const LogActivityForm = ({
   }, []);
 
   return (
-    <div className="min-h-screen text-on-surface antialiased flex items-center justify-center p-4 bg-background">
+    <div
+      className="min-h-screen text-on-surface antialiased flex items-center justify-center p-4 bg-cover bg-center bg-fixed"
+      style={{ backgroundImage: `url('${LOG_BACKGROUND}')` }}
+    >
       <main className="w-full max-w-2xl mx-auto z-10 relative">
         <div className="glass-panel rounded-xl p-8 md:p-12">
           <header className="flex items-center justify-between mb-stack-lg">
@@ -57,6 +63,7 @@ export const LogActivityForm = ({
             </div>
             <Link
               href={`/plants/${plantId}`}
+              aria-label="닫기"
               className="w-12 h-12 rounded-full flex items-center justify-center bg-surface/50 hover:bg-surface transition-colors border border-outline-variant/30 text-on-surface-variant"
             >
               <MaterialIcon name="close" />

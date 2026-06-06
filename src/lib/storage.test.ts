@@ -3,9 +3,7 @@ import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { describe, expect, it } from 'vitest';
 import {
-  STORAGE_ALLOWED_MIME_TYPES,
   STORAGE_BUCKET,
-  STORAGE_MAX_FILE_SIZE_BYTES,
   STORAGE_POLICIES,
   buildStoragePath,
   getStorageOwnerId,
@@ -23,13 +21,6 @@ describe('storage migration', () => {
   it('plant-images 버킷을 private로 생성한다', () => {
     expect(migrationSql).toContain(`'${STORAGE_BUCKET}'`);
     expect(migrationSql).toContain('false');
-    expect(migrationSql).toContain(String(STORAGE_MAX_FILE_SIZE_BYTES));
-  });
-
-  it('허용 MIME 타입을 설정한다', () => {
-    for (const mimeType of STORAGE_ALLOWED_MIME_TYPES) {
-      expect(migrationSql).toContain(`'${mimeType}'`);
-    }
   });
 
   it('정의된 storage 정책을 모두 포함한다', () => {
